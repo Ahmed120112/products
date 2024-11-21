@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    padding: 0;
+    transition: margin-right 0.3s ease-in-out; /* تأثير الانتقال عند فتح الكارت */
+}
+
+body.cart-open {
+    margin-right: 300px; /* دفع المحتوى بمقدار عرض الكارت */
+}
+
+#cartSidebar {
+    position: fixed;
+    top: 0;
+    right: -300px; /* الكارت يبدأ خارج الشاشة */
+    width: 300px;
+    height: 100%;
+    background: #f8f9fa;
+    transition: 0.3s ease-in-out; /* تأثير الانزلاق عند الفتح */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+    overflow-y: auto; /* تمرير المحتوى إذا زاد الطول */
+}
+
+#cartSidebar.active {
+    right: 0; /* الكارت ينزلق إلى الشاشة */
+}
+
+#cartSidebar ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#cartSidebar ul li button {
+    margin-left: 5px;
+}
+
+#cartSidebar h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
