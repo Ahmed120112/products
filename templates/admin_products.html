@@ -1,79 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="mb-4">Manage Products</h1>
+<h1 class="mb-4">Admin - Manage Products</h1>
 
 <!-- Form لإضافة منتج جديد -->
-<div class="mb-4">
-    <h3>Add New Product</h3>
+<div>
+    <h3>Add Product</h3>
     <form id="addProductForm">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" id="name" name="name" class="form-control" required>
+            <input type="text" id="name" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="price" class="form-label">Price</label>
-            <input type="number" id="price" name="price" class="form-control" required>
+            <input type="number" id="price" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea id="description" name="description" class="form-control"></textarea>
+            <textarea id="description" class="form-control"></textarea>
         </div>
         <div class="mb-3">
             <label for="image_url" class="form-label">Image URL</label>
-            <input type="url" id="image_url" name="image_url" class="form-control">
+            <input type="url" id="image_url" class="form-control">
         </div>
         <div class="mb-3">
-            <label for="category_id" class="form-label">Category</label>
-            <select id="category_id" name="category_id" class="form-control" required>
-                {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
+            <label for="category_id" class="form-label">Category ID</label>
+            <input type="number" id="category_id" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">Add Product</button>
     </form>
 </div>
 
-<!-- جدول المنتجات -->
-<h3>Existing Products</h3>
-<table class="table">
+<!-- جدول عرض المنتجات -->
+<h3 class="mt-5">Products</h3>
+<table class="table" id="productTable">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Image</th>
             <th>Name</th>
             <th>Price</th>
             <th>Description</th>
-            <th>Category</th>
+            <th>Image</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        {% for product in products %}
-        <tr>
-            <td>{{ product.id }}</td>
-            <td>
-                {% if product.image_url %}
-                <img src="{{ product.image_url }}" alt="{{ product.name }}" style="width: 50px; height: 50px;">
-                {% else %}
-                <img src="https://via.placeholder.com/50" alt="{{ product.name }}">
-                {% endif %}
-            </td>
-            <td>{{ product.name }}</td>
-            <td>${{ product.price }}</td>
-            <td>{{ product.description }}</td>
-            <td>{{ product.category.name if product.category else "N/A" }}</td>
-            <td>
-                <button class="btn btn-sm btn-secondary" onclick="showEditForm({{ product.id }}, '{{ product.name }}', {{ product.price }}, '{{ product.description }}', {{ product.category_id }})">Edit</button>
-                <button class="btn btn-sm btn-danger" onclick="deleteProduct({{ product.id }})">Delete</button>
-            </td>
-        </tr>
-        {% endfor %}
+        <!-- سيتم تعبئته بواسطة JavaScript -->
     </tbody>
 </table>
 
 <!-- Form لتعديل منتج -->
-<div id="editProductForm" style="display: none;">
+<div id="editProductForm" style="display: none; margin-top: 20px;">
     <h3>Edit Product</h3>
     <form>
         <input type="hidden" id="editProductId">
@@ -95,15 +70,12 @@
         </div>
         <div class="mb-3">
             <label for="editCategoryId" class="form-label">Category</label>
-            <select id="editCategoryId" name="category_id" class="form-control" required>
-                {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
+            <input type="number" id="editCategoryId" name="category_id" class="form-control" required>
         </div>
-        <button type="button" class="btn btn-primary" onclick="updateProduct()">Save Changes</button>
+        <button type="button" class="btn btn-primary" onclick="submitEditProduct()">Save Changes</button>
+        <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
     </form>
 </div>
 
-<script src="../static/js/admin.js"></script>
+<script src="/static/js/admin.js"></script>
 {% endblock %}

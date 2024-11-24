@@ -17,13 +17,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    {% with categories = categories %}
-                    {% for category in categories %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/category/{{ category.id }}">{{ category.name }}</a>
-                    </li>
-                    {% endfor %}
-                    {% endwith %}
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/products">Admin</a></li>
                 </ul>
             </div>
             <button id="cartButton" class="btn btn-primary">View Cart</button>
@@ -33,7 +28,6 @@
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Sidebar للسلة -->
     <div id="cartSidebar" class="shadow">
         <div class="p-3">
             <button id="closeCart" class="btn btn-sm btn-danger float-end">X</button>
@@ -44,6 +38,6 @@
         </div>
     </div>
 
-    <script src="../static/js/main.js"></script>
+    <script src="/static/js/main.js"></script>
 </body>
 </html>

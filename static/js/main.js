@@ -1,5 +1,5 @@
 // فتح/إغلاق الكارت مع دفع الصفحة
-$('#cartButton').on('click', function() {
+$('#cartButton').on('click', function () {
     $('#cartSidebar').toggleClass('active'); // فتح/إغلاق الكارت
     if ($('#cartSidebar').hasClass('active')) {
         $('body').addClass('cart-open'); // دفع الصفحة
@@ -9,7 +9,7 @@ $('#cartButton').on('click', function() {
 });
 
 // إغلاق الكارت فقط
-$('#closeCart').on('click', function() {
+$('#closeCart').on('click', function () {
     $('#cartSidebar').removeClass('active'); // إغلاق الكارت
     $('body').removeClass('cart-open'); // إرجاع الصفحة لوضعها الطبيعي
 });
@@ -17,16 +17,16 @@ $('#closeCart').on('click', function() {
 // إضافة منتج إلى السلة
 function addToCart(productId) {
     $.ajax({
-        url: '/add_to_cart',
+        url: '/api/cart', // تحديث الرابط ليتماشى مع API
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ product_id: productId }),
-        success: function(cartData) {
-            updateCart(cartData);
+        success: function (cartData) {
+            updateCart(cartData); // تحديث محتويات الكارت
             $('#cartSidebar').addClass('active'); // فتح الكارت تلقائيًا
             $('body').addClass('cart-open'); // دفع الصفحة تلقائيًا
         },
-        error: function(xhr) {
+        error: function (xhr) {
             alert('Error: ' + xhr.responseJSON.error);
         }
     });
@@ -35,14 +35,14 @@ function addToCart(productId) {
 // زيادة الكمية لمنتج معين
 function increaseQuantity(productId) {
     $.ajax({
-        url: '/increase_quantity',
+        url: '/api/cart', // تحديث الرابط ليتماشى مع API
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ product_id: productId }),
-        success: function(cartData) {
-            updateCart(cartData);
+        success: function (cartData) {
+            updateCart(cartData); // تحديث محتويات الكارت
         },
-        error: function(xhr) {
+        error: function (xhr) {
             alert('Error: ' + xhr.responseJSON.error);
         }
     });
@@ -51,14 +51,12 @@ function increaseQuantity(productId) {
 // تقليل الكمية لمنتج معين
 function decreaseQuantity(productId) {
     $.ajax({
-        url: '/decrease_quantity',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ product_id: productId }),
-        success: function(cartData) {
-            updateCart(cartData);
+        url: `/api/cart/${productId}`, // تحديث الرابط ليتماشى مع API
+        type: 'DELETE',
+        success: function (cartData) {
+            updateCart(cartData); // تحديث محتويات الكارت
         },
-        error: function(xhr) {
+        error: function (xhr) {
             alert('Error: ' + xhr.responseJSON.error);
         }
     });
@@ -66,7 +64,7 @@ function decreaseQuantity(productId) {
 
 // تحديث محتويات الكارت
 function updateCart(cartData) {
-    let cartItems = $('#cartItems');
+    const cartItems = $('#cartItems');
     cartItems.empty();
     let totalPrice = 0;
 
@@ -87,13 +85,15 @@ function updateCart(cartData) {
 // مسح جميع المنتجات من السلة
 function clearCart() {
     $.ajax({
-        url: '/clear_cart',
-        type: 'POST',
-        success: function() {
+        url: '/api/cart', // مسار API لتفريغ السلة
+        type: 'DELETE', // نوع الطلب
+        success: function () {
             updateCart([]); // تحديث الكارت ليصبح فارغًا
+            alert('Cart cleared successfully!');
         },
-        error: function(xhr) {
-            alert('Error: ' + xhr.responseJSON.error);
+        error: function (xhr) {
+            alert('Error: Failed to clear cart.');
+            console.error('Clear Cart Error:', xhr.responseJSON);
         }
     });
 }

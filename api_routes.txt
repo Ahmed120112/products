@@ -1,0 +1,13 @@
+# API Routes
+
+## Products
+GET     /api/products               - Fetch all products
+POST    /api/products               - Add a new product
+PUT     /api/products/<id>          - Update a product by ID
+DELETE  /api/products/<id>          - Delete a product by ID
+
+## Cart
+POST    /api/cart                   - Add a product to the cart
+GET     /api/cart                   - Get all items in the cart
+DELETE  /api/cart/<product_id>      - Remove a product from the cart
+DELETE  /api/cart                   - Clear all items from the cart

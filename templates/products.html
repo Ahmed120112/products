@@ -1,23 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="mb-4 text-center">{{ selected_category if selected_category else "Available Products" }}</h1>
-<div class="row">
-    {% for product in products %}
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            {% if product.image_url %}
-            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
-            {% else %}
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="{{ product.name }}">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">{{ product.description }}</p>
-                <p class="card-text"><strong>${{ product.price }}</strong></p>
-                <button onclick="addToCart({{ product.id }})" class="btn btn-primary">Add to Cart</button>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
+<h1 class="mb-4 text-center">Available Products</h1>
+<div class="row" id="productsContainer">
+    <!-- سيتم تعبئة المنتجات بواسطة JavaScript -->
 </div>
+<script>
+    function loadProducts() {
+        fetch('/api/products')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('productsContainer');
+                container.innerHTML = '';
+                data.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'col-md-4 mb-4';
+                    card.innerHTML = `
+                        <div class="card">
+                            <img src="${product.image_url || 'https://via.placeholder.com/150'}" class="card-img-top" alt="${product.name}">
+                            <div class="card-body">
+                                <h5 class="card-title">${product.name}</h5>
+                                <p class="card-text">${product.description || 'No description available'}</p>
+                                <p class="card-text"><strong>$${product.price}</strong></p>
+                                <button onclick="addToCart(${product.id})" class="btn btn-primary">Add to Cart</button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadProducts);
+</script>
 {% endblock %}

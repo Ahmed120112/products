@@ -1,0 +1,14 @@
+{
+    "products": {
+      "get_all": "/api/products",
+      "add": "/api/products",
+      "update": "/api/products/<id>",
+      "delete": "/api/products/<id>"
+    },
+    "cart": {
+      "add": "/api/cart",
+      "get_all": "/api/cart",
+      "remove": "/api/cart/<product_id>",
+      "clear": "/api/cart"
+    }
+  }
