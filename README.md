@@ -1,6 +1,6 @@
 README.md
 
-# E-Commerce Flask Application
+# products
 
 This is a simple e-commerce web application built using Flask. The application allows managing products, categories, and a shopping cart system. It includes both admin and user functionalities for a seamless experience.
 
@@ -39,13 +39,14 @@ This is a simple e-commerce web application built using Flask. The application a
 
 ### **1. Clone the repository**
 ```bash
-git clone https://github.com/Ahmed120112/ecommerce-products-flask.git
-cd ecommerce-flask
+git clone https://github.com/Ahmed120112/products.git
+cd products
 
 2. Create a virtual environment
 
 python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
+ # On Windows: venv\Scripts\activate
 
 3. Install dependencies
 
@@ -68,7 +69,7 @@ The application will be available at: http://127.0.0.1:8080
 
 Project Structure
 
-ecommerce-flask/
+products/
 │
 ├── app.py               # Main application file
 ├── models.py            # Database models
@@ -172,14 +173,3 @@ License
 This project is licensed under the MIT License.
 
 ---
-
-### **ما يحتويه الـ README**
-- **وصف شامل للمشروع.**
-- **الميزات الأساسية.**
-- **التعليمات لتثبيت وتشغيل المشروع.**
-- **هيكل المشروع.**
-- **التفاصيل حول كل ملف رئيسي.**
-- **الأخطاء الشائعة وكيفية إصلاحها.**
-- **اقتراحات لتحسين المشروع.**
-
-إذا كنت بحاجة لتعديلات إضافية، سأكون سعيدًا بمساعدتك!# products
