@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-# جدول الفئات
+
 class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
@@ -12,7 +12,7 @@ class Category(db.Model):
     def __repr__(self):
         return f"<Category {self.name}>"
 
-# جدول المنتجات
+
 class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
@@ -24,7 +24,7 @@ class Product(db.Model):
     def __repr__(self):
         return f"<Product {self.name}, ${self.price}>"
 
-# جدول السلة
+
 class Cart(db.Model):
     __tablename__ = 'cart'
     id = db.Column(db.Integer, primary_key=True)
