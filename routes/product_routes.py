@@ -1,11 +1,18 @@
 from flask import Blueprint, jsonify, request
-from controllers.product_controller import get_all_products, add_product, update_product, delete_product
+from controllers.product_controller import get_all_products, get_product, add_product, update_product, delete_product
 
 product_blueprint = Blueprint('product', __name__, url_prefix='/api/products')
 
 @product_blueprint.route('', methods=['GET'])
 def get_products():
     return jsonify(get_all_products())
+
+@product_blueprint.route('/<int:product_id>', methods=['GET'])
+def get_product_by_id(product_id):
+    product = get_product(product_id)
+    if product:
+        return jsonify(product), 200
+    return jsonify({"error": "Product not found"}), 404
 
 @product_blueprint.route('', methods=['POST'])
 def create_product():
